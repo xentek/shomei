@@ -9,20 +9,36 @@ require 'multi_json'
 require 'data_mapper'
 require 'dm-timestamps'
 require 'action_view'
-require 'dotenv'
-Dotenv.load
 include ActionView::Helpers::DateHelper
+
+configure :development do |config|
+  require 'dotenv'
+  Dotenv.load
+  require "sinatra/reloader"
+  config.also_reload "lib/*.rb"
+end
+
 DataMapper.setup(:default, ENV['DATABASE_URL'])
-require 'models/ping'
+require 'ping'
 DataMapper.finalize
 DataMapper.auto_upgrade!
 
-configure :development do |config|
-  require "sinatra/reloader"
-  config.also_reload "lib/models/*.rb"
+helpers do
+  def protected!
+    unless authorized?
+      response['WWW-Authenticate'] = %(Basic realm="Restricted Area")
+      halt 401, "Not authorized"
+    end
+  end
+
+  def authorized?
+    @auth ||=  Rack::Auth::Basic::Request.new(request.env)
+    @auth.provided? && @auth.basic? && @auth.credentials && @auth.credentials == [ENV['ADMIN_USER'], ENV['ADMIN_PASS']]
+  end
 end
 
 before do
+  protected!
   if request.negotiated?
     content_type request.negotiated_type
   end
@@ -33,10 +49,10 @@ get '/' do
 end
 
 get '/pings' do
-  col = params[:col] || "created_at"
-  sort = params[:sort] || "asc"
-
-  @pings = Ping.all(:order => col.to_sym.send(sort.to_sym))
+  col = params[:col] || "updated_at"
+  sort = params[:sort] || "desc"
+  
+  @pings = Ping.all(:order => [(col.to_sym).send(sort.to_sym)])
   
   Sinatra::Application.respond_to do |wants|
     wants.json  { @pings.to_json }
