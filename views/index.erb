@@ -1,15 +1,14 @@
 <table width="100%">
   <thead>
     <tr>
-      <th>Machine</th><th>Status</th><th>Last Report</th>
+      <th width="30%" data-col="machine">Machine <span></span></th>
+      <th width="30%" data-col="status">Status <span></span></th>
+      <th width="40%" data-col="created_at" data-sort="asc" class="asc">Timestamp <span></span></th>
     </tr>
   </thead>
   <tbody> 
-    <tr> 
-      <td>bigpapa</td><td>Success</td><td><%= Time.now %></td>
-    </tr>
     <tr>
-      <td>boymonkey</td><td>Failure</td><td><%= Time.now %></td>
+      <td colspan="3" class="loading"><img src="/img/load.gif"></td>
     </tr>
   </tbody>
 </table>
