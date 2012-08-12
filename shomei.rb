@@ -6,6 +6,7 @@ lib_path = File.expand_path('../lib', __FILE__)
 require 'sinatra'
 require 'multi_json'
 require 'data_mapper'
+require 'dm-timestamps'
 require 'dotenv'
 Dotenv.load
 
@@ -32,7 +33,7 @@ post '/pings' do
     return 500
   end
   
-  if Ping.create ping["machine"], ping["status"]
+  if Ping.create machine: ping["machine"], status: ping["status"]
     status 201
     return ":)"
   end
