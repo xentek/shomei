@@ -14,4 +14,5 @@ group :development, :test do
   gem 'foreman'
   gem 'sinatra-reloader'
   gem 'dotenv'
+  gem 'rspec'
 end
