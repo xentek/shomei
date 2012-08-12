@@ -32,7 +32,10 @@ get '/' do
 end
 
 get '/pings' do
-  @pings = Ping.all
+  col = params[:col] || "created_at"
+  sort = params[:sort] || "asc"
+
+  @pings = Ping.all(:order => col.to_sym.send(sort.to_sym))
   
   Sinatra::Application.respond_to do |wants|
     wants.json  { @pings.to_json }
