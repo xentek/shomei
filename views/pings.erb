@@ -1,0 +1,7 @@
+<% @pings.each do |ping| %>
+  <tr> 
+    <td><%= ping.machine %></td>
+    <td><%= ping.status %></td>
+    <td><%= ping.updated_at %></td>
+  </tr>
+<% end %>

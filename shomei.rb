@@ -3,6 +3,7 @@
 lib_path = File.expand_path('../lib', __FILE__)
 ($:.unshift lib_path) unless ($:.include? lib_path)
 
+require 'rack/conneg'
 require 'sinatra'
 require 'multi_json'
 require 'data_mapper'
@@ -20,22 +21,37 @@ configure :development do |config|
   config.also_reload "lib/models/*.rb"
 end
 
+before do
+  if request.negotiated?
+    content_type request.negotiated_type
+  end
+end
+
 get '/' do
   erb :index
+end
+
+get '/pings' do
+  @pings = Ping.all
+  
+  Sinatra::Application.respond_to do |wants|
+    wants.json  { @pings.to_json }
+    wants.html  { erb :pings, layout: false }
+    wants.other { content_type 'text/plain' ; error 406, "Not Acceptable" }
+  end
 end
 
 post '/pings' do
   return 500 unless params[:ping]
 
   begin
-    ping = MultiJson.load(params[:ping]) 
+    ping = MultiJson.load params[:ping], symbolize_keys: true 
+    if Ping.create ping
+      status 201
+      return ":)"
+    end
   rescue 
     return 500
-  end
-  
-  if Ping.create machine: ping["machine"], status: ping["status"]
-    status 201
-    return ":)"
   end
 end
 

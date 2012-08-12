@@ -7,6 +7,7 @@ gem 'oj'
 gem 'multi_json'
 gem 'data_mapper'
 gem 'dm-postgres-adapter'
+gem 'rack-conneg'
 
 group :development, :test do
   gem 'foreman'
