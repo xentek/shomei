@@ -8,9 +8,10 @@ require 'sinatra'
 require 'multi_json'
 require 'data_mapper'
 require 'dm-timestamps'
+require 'action_view'
 require 'dotenv'
 Dotenv.load
-
+include ActionView::Helpers::DateHelper
 DataMapper.setup(:default, ENV['DATABASE_URL'])
 require 'models/ping'
 DataMapper.finalize

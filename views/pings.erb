@@ -2,6 +2,10 @@
   <tr> 
     <td><%= ping.machine %></td>
     <td><%= ping.status %></td>
-    <td><%= ping.updated_at %></td>
+    <td>
+      <time title="<%= ping.updated_at %>" datetime="<%= ping.updated_at %>">
+        <%= time_ago_in_words(ping.updated_at) %> ago
+      </time>
+    </td>
   </tr>
 <% end %>
