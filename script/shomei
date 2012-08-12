@@ -1,0 +1,10 @@
+#!/bin/sh
+status=$(defaults read /private/var/db/.TimeMachine.Results RESULT)
+
+if [ "${status}" = "13" ] || [ "${status}" = "0" ]; then
+  status="success"
+else
+  status="failure"
+fi
+
+curl --user ${SHOMEI_USER}:${SHOMEI_PASS} -X POST -d ping=\'"{\"machine\":\"${HOSTNAME}\",\"status\":\"${status}\"}"\' -s "${SHOMEI_SERVER}/pings"
