@@ -1,10 +1,18 @@
 #!/usr/bin/env ruby -w
 # encoding: UTF-8
+lib_path = File.expand_path('../lib', __FILE__)
+($:.unshift lib_path) unless ($:.include? lib_path)
 
 require 'sinatra'
 require 'multi_json'
-require 'require_all'
-require_all 'lib/models'
+require 'data_mapper'
+require 'dotenv'
+Dotenv.load
+
+DataMapper.setup(:default, ENV['DATABASE_URL'])
+require 'models/ping'
+DataMapper.finalize
+DataMapper.auto_upgrade!
 
 configure :development do |config|
   require "sinatra/reloader"
