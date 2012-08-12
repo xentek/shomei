@@ -24,3 +24,16 @@ th span {
   margin-bottom: 4px;  
   background: url(/img/arrows.png) 0 bottom no-repeat;
 }
+
+.status-success .status {
+  color: green;
+}
+
+.status-failure td {
+  font-weight: bold;
+  font-size: 110%;
+}
+
+.status-failure .status {
+  color: red;
+}
