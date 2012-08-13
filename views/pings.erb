@@ -1,11 +1,10 @@
 <% @pings.each do |ping| %>
   <tr class="<%= "status-#{ping.status}" %>">
-    <td><%= ping.machine %></td>
-    <td class="status"><%= ping.status %></td>
-    <td>
+    <td class="timestamp">
       <time title="<%= ping.updated_at %>" datetime="<%= ping.updated_at %>">
         <%= time_ago_in_words(ping.updated_at) %> ago
       </time>
     </td>
+    <td class="status"><%= ping.status %></td>
   </tr>
 <% end %>

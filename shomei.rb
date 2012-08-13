@@ -8,6 +8,7 @@ require 'sinatra'
 require 'multi_json'
 require 'data_mapper'
 require 'dm-timestamps'
+require 'dm-aggregates'
 require 'action_view'
 include ActionView::Helpers::DateHelper
 
@@ -48,11 +49,19 @@ get '/' do
   erb :index
 end
 
-get '/pings' do
+get '/machines/:machine' do
+  @machine = params[:machine]
+  @pings = Ping.all(:machine => params[:machine], :order => [:updated_at.desc])
+  halt 404, 'Not Found' if @pings.empty?
+  erb :machines
+end
+
+get '/pings/:machine' do
   col = params[:col] || "updated_at"
   sort = params[:sort] || "desc"
   
-  @pings = Ping.all(:order => [(col.to_sym).send(sort.to_sym)])
+  @pings = Ping.all(:machine => params[:machine], 
+                    :order => [(col.to_sym).send(sort.to_sym)])
   
   Sinatra::Application.respond_to do |wants|
     wants.json  { @pings.to_json }

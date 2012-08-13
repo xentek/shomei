@@ -1,0 +1,36 @@
+<div class="row">
+  <h2><%= @machine %></h2>
+  <div class="six mobile-two columns">
+    <ul>
+      <li><strong>Current Status:</strong> <%= @pings.first.status %></li>
+      <li><strong>Total Pings:</strong> <%= @pings.count %></li>
+      <li><strong>Last Ping:</strong> <%= time_ago_in_words(@pings.first.updated_at) %> ago</li>
+    </ul>
+  </div>
+  <div class="six mobile-two columns">
+    <div id="piechart"></div>
+  </div>
+</div>
+<table width="100%">
+  <thead>
+    <tr>
+      <th width="50%" data-col="updated_at" data-sort="desc" class="desc">Time <span></span></th>
+      <th width="50%" data-col="status">Status <span></span></th>
+    </tr>
+  </thead>
+  <tbody> 
+    <tr>
+      <td colspan="3" class="loading"><img src="/img/load.gif"></td>
+    </tr>
+  </tbody>
+</table>
+<script src="/js/piechart.js"></script>
+<script>
+  var machine = '<%= @machine %>';
+  var data = google.visualization.arrayToDataTable([
+    ['Status' , 'Pings'],
+    ['success',      18],
+    ['failure',       2]
+    ]);
+    google.setOnLoadCallback(drawChart(data));  
+</script>
