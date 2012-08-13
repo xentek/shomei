@@ -10,6 +10,7 @@ require 'data_mapper'
 require 'dm-timestamps'
 require 'dm-aggregates'
 require 'action_view'
+require 'time'
 include ActionView::Helpers::DateHelper
 
 configure :development do |config|
@@ -46,12 +47,21 @@ before do
 end
 
 get '/' do
+  @machines_with_status = []
+  machines = Ping.all(:fields => [:machine],
+                       :unique => true, 
+                       :order => [:machine.asc])
+  machines.each do |machine|
+    @machines_with_status << Ping.first(:machine => machine.machine, :order => :updated_at.desc)
+  end
   erb :index
 end
 
 get '/machines/:machine' do
   @machine = params[:machine]
   @pings = Ping.all(:machine => params[:machine], :order => [:updated_at.desc])
+  @s_count = Ping.count(:machine => @machine, :status => 'success')
+  @f_count = Ping.count(:machine => @machine, :status => 'failure')
   halt 404, 'Not Found' if @pings.empty?
   erb :machines
 end
