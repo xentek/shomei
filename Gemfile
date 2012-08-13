@@ -11,6 +11,7 @@ gem 'rack-conneg'
 gem 'actionpack'
 
 group :development, :test do
+  gem 'taps', git: "git://github.com/icco/taps.git"
   gem 'foreman'
   gem 'sinatra-reloader'
   gem 'dotenv'

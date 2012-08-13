@@ -1,7 +1,7 @@
 #!/bin/sh
 SHOMEI_USER="shomei"
 SHOMEI_PASS="themoney"
-SHOMEI_SERVER="http://0.0.0.0:5000"
+SHOMEI_SERVER="https://shomei.herokuapp.com"
 
 status=$(defaults read /private/var/db/.TimeMachine.Results RESULT)
 
