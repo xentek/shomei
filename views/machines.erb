@@ -1,13 +1,21 @@
 <div class="row">
-  <h2><%= @machine %></h2>
-  <div class="six mobile-two columns">
-    <ul>
-      <li><strong>Current Status:</strong> <%= @pings.first.status %></li>
-      <li><strong>Total Pings:</strong> <%= @pings.count %></li>
-      <li><strong>Last Ping:</strong> <%= time_ago_in_words(@pings.first.updated_at) %> ago</li>
+  <h2 id="machine-name"><%= @machine %></h2>
+  <div id="summary" class="six mobile-two columns">
+    <ul class="square">
+      <li><strong>Status:</strong> 
+          <span><%= @pings.first.status %></span>
+      </li>
+      <li>
+        <strong>Last:</strong>
+        <span><%= time_ago_in_words(@pings.first.updated_at) %> ago</span>
+      </li>
+      <li>
+        <strong>Pings:</strong> 
+        <span><%= @pings.count %></span>
+      </li>
     </ul>
   </div>
-  <div class="six mobile-two columns">
+  <div id="graph" class="six mobile-two columns">
     <div id="piechart"></div>
   </div>
 </div>

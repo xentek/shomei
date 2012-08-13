@@ -1,15 +1,30 @@
-#machines .machine {
-  text-align: justify;
-}
-
 #machines .machine a {
   width: 100%;
 }
 
-#machines .machine a time {
-  color: #f2f2f2;
-  font-size: 60%;
-  width: 100%
+#machine-name {
+  margin-left: 18px;
+  padding: 0px;
+  padding-left: 8px;
+  color: #434334;
+  border-left: 6px solid #d3d2ce;
+}
+
+#summary ul {
+  margin-left: 4px;
+  color: #d3d2ce;
+}
+
+#summary strong, #summary span {
+  color: #434334;
+}
+
+#summary span {
+  float: right;
+}
+
+#graph {
+  text-align: center;
 }
 
 .loading {
@@ -40,7 +55,7 @@ th span {
 }
 
 .status-success .status {
-  color: green;
+  color: #5da423;
 }
 
 .status-failure td {
@@ -49,5 +64,5 @@ th span {
 }
 
 .status-failure .status {
-  color: red;
+  color: #c60f13;
 }
