@@ -38,8 +38,8 @@
     $('tbody').load('/pings/<%= @machine %>?col=updated_at&sort=desc');
 
     $('th').live({
-      tap: function() { sort(<%= @machine %>, this) },
-      click: function() { sort(<%= @machine %>, this) }
+      tap: function() { sort('<%= @machine %>', this) },
+      click: function() { sort('<%= @machine %>', this) }
     });
 
   });
