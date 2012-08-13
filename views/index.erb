@@ -1,8 +1,7 @@
 <section id="machines">
   <div class="machine">
-    <a href="/machines/boymonkey" class="button success large">boymonkey</a>
-    <a href="/machines/boymonkey" class="button alert large">boymonkey</a>
-    <a href="/machines/boymonkey" class="button large">boymonkey</a>
-    <a href="/machines/boymonkey" class="button secondary large">boymonkey</a>
+    <% @machines_with_status.each do |machine| %>
+      <a href="/machines/<%= machine.machine %>" class="button <%= machine.button_css_class %> large"><%= machine.machine %></a>
+    <% end %>
   </div>
 </section>

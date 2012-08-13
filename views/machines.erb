@@ -34,11 +34,19 @@
 </table>
 <script src="/js/piechart.js"></script>
 <script>
-  var machine = '<%= @machine %>';
+  $(document).ready(function() {
+    $('tbody').load('/pings/<%= @machine %>?col=updated_at&sort=desc');
+
+    $('th').live({
+      tap: function() { sort(<%= @machine %>, this) },
+      click: function() { sort(<%= @machine %>, this) }
+    });
+
+  });
   var data = google.visualization.arrayToDataTable([
-    ['Status' , 'Pings'],
-    ['success',      18],
-    ['failure',       2]
+    ['Status' , 'Pings'        ],
+    ['success', <%= @s_count %>],
+    ['failure', <%= @f_count %>]
     ]);
     google.setOnLoadCallback(drawChart(data));  
 </script>
