@@ -1,16 +1,15 @@
 <div class="row">
-  <h2 id="machine-name"><%= @machine %></h2>
+  <div id="machine-header">
+    <h3 id="machine-name"><%= @machine %></h2>
+    <h6 id="last-ping" class="subheader">Last Ping: <%= time_ago_in_words(@pings.first.updated_at) %> ago</h6>
+  </div>
   <div id="summary" class="six mobile-two columns">
     <ul class="square">
-      <li><strong>Status:</strong> 
+      <li><strong>Current:</strong> 
           <span><%= @pings.first.status %></span>
-      </li>
+      </li> 
       <li>
-        <strong>Last:</strong>
-        <span><%= time_ago_in_words(@pings.first.updated_at) %> ago</span>
-      </li>
-      <li>
-        <strong>Pings:</strong> 
+        <strong>Total:</strong> 
         <span><%= @pings.count %></span>
       </li>
     </ul>

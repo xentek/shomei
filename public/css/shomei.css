@@ -2,12 +2,16 @@
   width: 100%;
 }
 
-#machine-name {
+#machine-header {
   margin-left: 18px;
   padding: 0px;
   padding-left: 8px;
   color: #434334;
   border-left: 6px solid #d3d2ce;
+}
+
+#last-ping {
+  margin-top: -10px;
 }
 
 #summary ul {
