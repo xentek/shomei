@@ -3,5 +3,8 @@
     <% @machines_with_status.each do |machine| %>
       <a href="/machines/<%= machine.machine %>" class="button <%= machine.button_css_class %> large"><%= machine.machine %></a>
     <% end %>
+    <% if @machines_with_status.empty? %>
+      <p>We haven't recieved any pings. Have you installed the client on your machines?</p>
+    <% end %>
   </div>
 </section>
