@@ -1,4 +1,8 @@
 #!/bin/sh
+SHOMEI_USER="shomei"
+SHOMEI_PASS="themoney"
+SHOMEI_SERVER="http://0.0.0.0:5000"
+
 status=$(defaults read /private/var/db/.TimeMachine.Results RESULT)
 
 if [ "${status}" = "13" ] || [ "${status}" = "0" ]; then
@@ -7,4 +11,6 @@ else
   status="failure"
 fi
 
-curl --user ${SHOMEI_USER}:${SHOMEI_PASS} -X POST -d ping=\'"{\"machine\":\"${HOSTNAME}\",\"status\":\"${status}\"}"\' -s "${SHOMEI_SERVER}/pings"
+eval curl --user ${SHOMEI_USER}:${SHOMEI_PASS} -X POST -d \
+"'ping={\"machine\":\"${HOSTNAME}\",\"status\":\"${status}\"}'" \
+-s ${SHOMEI_SERVER}/pings
