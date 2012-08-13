@@ -1,14 +1,4 @@
-$(document).ready(function() {
-  $('tbody').load('/pings/'+machine+'?col=updated_at&sort=desc');
-
-  $('th').live({
-    tap: function() { sort(this) },
-    click: function() { sort(this) }
-  });
-
-});
-
-function sort(el) {
+function sort(machine, el) {
     var sort = $(el).data('sort') || 'desc';
     var new_sort = (sort == 'asc') ? 'desc' : 'asc';
     var col = $(el).data('col');
